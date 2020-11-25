@@ -44,12 +44,13 @@
                       <td>{{ $e->degree }}</td>
                       <td>{{ $e->email }}</td>
                       <td>{{ $e->freelance }}</td>
-                      <td>{{ $e->image }}</td>
+                      <td><img src="{{ asset("img/$e->image") }}" alt=""></td>
                       <td class="d-flex">
                         <a class="btn btn-success" href="/user/{{ $e->id }}/edit">edit</a>
                         
                         <form action="/user/{{ $e->id }}" method="post">
                           @csrf
+                          @method("delete")
                           <button class="btn btn-danger ml-2"  type="submit">Delete</button>
 
                         </form>
@@ -64,7 +65,7 @@
 
         </div>
     </section>
-
+    {{-- USER --}}
 
     {{-- FACT --}}
     <section id="user-table">

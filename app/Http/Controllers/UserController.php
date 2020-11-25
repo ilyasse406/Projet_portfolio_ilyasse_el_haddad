@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -57,7 +58,9 @@ class UserController extends Controller
         $user->degree = $request->degree;
         $user->email = $request->email;
         $user->freelance = $request->freelance;
-        $user->image = $request->image;
+        $user->image = $request->file("image")->hashName();
+        $request->file("image")->storePublicly("img", "public");
+        
         $user->save();
         return redirect()->route("admin");
     }
@@ -113,7 +116,9 @@ class UserController extends Controller
         $user->degree = $request->degree;
         $user->email = $request->email;
         $user->freelance = $request->freelance;
-        $user->image = $request->image;
+        Storage::disk("public")->delete("img/"  .  $user->image);
+        $user->image = $request->file("image")->hashName();
+        $request->file("image")->storePublicly("img", "public");
         $user->save();
         return redirect()->route("admin");
     }
@@ -127,6 +132,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        Storage::disk("public")->delete("img/"  .  $user->image);
         return  redirect()->back();
     }
 }

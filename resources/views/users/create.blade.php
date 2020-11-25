@@ -2,7 +2,7 @@
 
 @section('content2')
 <div class="container">
-    <form action="{{ route("user.store") }}" method="POST">
+    <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Image</label>
-          <input type="text" class="form-control" id="exampleInputPassword1" name="image">
+          <input type="file"  id="exampleInputPassword1" name="image">
         </div>
         
         
